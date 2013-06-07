@@ -291,7 +291,7 @@ except ImportError, exp:
 # Globals
 #
 
-ExternalEncoding = 'ascii'
+ExternalEncoding = 'utf-8'
 Tag_pattern_ = re_.compile(r'({.*})?(.*)')
 String_cleanup_pat_ = re_.compile(r"[\n\r\s]+")
 Namespace_extract_pat_ = re_.compile(r'{(.*)}(.*)')
@@ -313,7 +313,7 @@ def quote_xml(inStr):
     s1 = s1.replace('&', '&amp;')
     s1 = s1.replace('<', '&lt;')
     s1 = s1.replace('>', '&gt;')
-    return s1
+    return unicode(s1)
 
 def quote_attrib(inStr):
     s1 = (isinstance(inStr, basestring) and inStr or
@@ -328,7 +328,7 @@ def quote_attrib(inStr):
             s1 = "'%s'" % s1
     else:
         s1 = '"%s"' % s1
-    return s1
+    return unicode(s1)
 
 def quote_python(inStr):
     s1 = inStr
@@ -1230,10 +1230,10 @@ class AnalysisType(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='maecPackage:', name_='AnalysisType'):
         if self.start_datetime is not None and 'start_datetime' not in already_processed:
             already_processed.add('start_datetime')
-            outfile.write(' start_datetime="%s"' % self.gds_format_datetime(self.start_datetime, input_name='start_datetime'))
+            outfile.write(' start_datetime="%s"' % self.start_datetime)
         if self.complete_datetime is not None and 'complete_datetime' not in already_processed:
             already_processed.add('complete_datetime')
-            outfile.write(' complete_datetime="%s"' % self.gds_format_datetime(self.complete_datetime, input_name='complete_datetime'))
+            outfile.write(' complete_datetime="%s"' % self.complete_datetime)
         if self.method is not None and 'method' not in already_processed:
             already_processed.add('method')
             outfile.write(' method=%s' % (quote_attrib(self.method), ))
@@ -1242,7 +1242,7 @@ class AnalysisType(GeneratedsSuper):
             outfile.write(' ordinal_position="%s"' % self.gds_format_integer(self.ordinal_position, input_name='ordinal_position'))
         if self.lastupdate_datetime is not None and 'lastupdate_datetime' not in already_processed:
             already_processed.add('lastupdate_datetime')
-            outfile.write(' lastupdate_datetime="%s"' % self.gds_format_datetime(self.lastupdate_datetime, input_name='lastupdate_datetime'))
+            outfile.write(' lastupdate_datetime="%s"' % self.lastupdate_datetime)
         if self.type_ is not None and 'type_' not in already_processed:
             already_processed.add('type_')
             outfile.write(' type=%s' % (quote_attrib(self.type_), ))
@@ -1673,7 +1673,7 @@ class PackageType(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='maecPackage:', name_='MAEC_Package'):
         if self.timestamp is not None and 'timestamp' not in already_processed:
             already_processed.add('timestamp')
-            outfile.write(' timestamp="%s"' % self.gds_format_datetime(self.timestamp, input_name='timestamp'))
+            outfile.write(' timestamp="%s"' % self.timestamp)
         if self.id is not None and 'id' not in already_processed:
             already_processed.add('id')
             outfile.write(' id=%s' % (quote_attrib(self.id), ))
