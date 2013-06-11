@@ -13,6 +13,7 @@ from maec.bundle.malware_action import MalwareAction
 from maec.bundle.av_classification import AVClassification, AVClassifications
 from maec.package.analysis import Analysis
 from maec.package.malware_subject import MalwareSubject
+from maec.bundle.behavior import Behavior
 from maec.id_generator import Generator
 from cybox.core.object import Object
 from cybox.core.associated_object import AssociatedObject
@@ -93,6 +94,7 @@ class parser:
                         sample_info = sample_info_coll.get_sample_info()
 
                         malware_subject = self.__create_malware_subject_object(subreport, sample_info[0], subreports, id_map)
+                        
                         av_aliases = self.__get_av_aliases(sample_info[0])
                         self.tool_id = malware_subject.analyses[0].tools[0].id_
             
@@ -117,7 +119,11 @@ class parser:
                     
             for alias in av_aliases:
                 self.bundle_obj.add_av_classification(AVClassification.from_dict(alias))
-                
+            
+            flag_list = submission_summary.get_flag_collection().get_flag()
+            for flag in flag_list:
+                self.bundle_obj.add_behavior(Behavior(self.generator.generate_behavior_id(), flag.description))
+            
             malware_subject.add_findings_bundle(self.bundle_obj)
             
             malware_subject.analyses[0].set_findings_bundle(self.bundle_obj.id)

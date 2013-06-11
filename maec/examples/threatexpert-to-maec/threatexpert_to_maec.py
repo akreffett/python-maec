@@ -75,7 +75,7 @@ def usage():
     
 USAGE_TEXT = """
 ThreatExpert XML Output --> MAEC XML Converter Utility
-v0.91 BETA // Supports MAEC v2.1 and CybOX v1.0 draft
+v0.92 BETA // Supports MAEC v4.0 and CybOX v2.0
 
 Usage: python threatexpert_to_maec.py <special arguments> -i <input threatexpert xml output> -o <output maec xml file> 
        OR python threatexpert_to_maec.py <special arguments> -d <directory>
